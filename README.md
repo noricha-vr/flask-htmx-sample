@@ -28,11 +28,6 @@ A modern, simple chat UI powered by Flask, HTMX, and OpenAI Agent SDK that enabl
 
 ```bash
 export OPENAI_API_KEY="your-openai-api-key"
-# optional:
-export DB_HOST="your-mysql-host"
-export DB_USER="your-mysql-user"
-export DB_PASSWORD="your-mysql-password"
-export DB_DATABASE="your-mysql-database"
 ```
 
 3. (Optional) Configure MySQL connection in environment variables:
