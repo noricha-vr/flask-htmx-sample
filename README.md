@@ -2,6 +2,8 @@
 
 A modern, simple chat UI powered by Flask, HTMX, and OpenAI Agent SDK that enables search and database query capabilities.
 
+![alt text](images/screenshot.png)
+
 ## Features
 
 - Web search capabilities
