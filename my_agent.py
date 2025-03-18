@@ -197,21 +197,14 @@ class SearchAgent:
             import markdown
             from markdown.extensions.extra import ExtraExtension
             
-            # カスタムパターンの変換（これは念のため残しておく）
-            pattern = r'\(\[([^]]+)\]\((https?://[^)]+)\)\)'
-            replacement = r'([\1](<a href="\2" target="_blank">\2</a>))'
-            text = re.sub(pattern, replacement, text)
-            
             # Markdownをベースにして完全なHTMLに変換
             # ExtensionでMarkdownの拡張機能（テーブルなど）も処理可能に
             html = markdown.markdown(text, extensions=[ExtraExtension()])
             
             return html
             
-        except ImportError:
-            # markdown モジュールがなければシンプルな代替処理
-            # 改行を<br>タグに変換
-            text = text.replace('\n', '<br>')
+        except Exception as e:
+            print(e)
             return text
     
     async def ask_stream(self, question):
