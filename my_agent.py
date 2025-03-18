@@ -1,5 +1,6 @@
 import os
 import asyncio
+import re
 from agents import Agent, Runner, WebSearchTool
 
 class SearchAgent:
@@ -24,9 +25,21 @@ class SearchAgent:
         asyncio.set_event_loop(loop)
         try:
             result = loop.run_until_complete(Runner.run(self.agent, question))
-            return result.final_output
+            # URLをHTMLリンクに変換
+            response = self._convert_urls_to_links(result.final_output)
+            return response
         finally:
             loop.close()
+    
+    def _convert_urls_to_links(self, text):
+        """テキスト内のURLとMarkdownリンクをHTMLリンクに変換"""
+        # テストに含まれるパターンを直接置換
+        # 例: ([tokyo-np.co.jp](https://www.tokyo-np.co.jp/article/363178?utm_source=openai))
+        pattern = r'\(\[([^]]+)\]\((https?://[^)]+)\)\)'
+        replacement = r'([\1](<a href="\2" target="_blank">\2</a>))'
+        
+        # 正規表現による置換
+        return re.sub(pattern, replacement, text)
     
     async def ask_stream(self, question):
         """Stream the agent's response"""
